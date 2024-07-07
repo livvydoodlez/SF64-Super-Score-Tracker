@@ -1,0 +1,43 @@
+# Define a dictionary to map route codes to planet names
+route_to_planets = {
+    'CoMeFoSXTiBoV1': ['Corneria', 'Meteo', 'Fortuna', 'Sector X', 'Titania', 'Bolse', 'Venom 1'],
+    'CoMeFoSXMaBoV1': ['Corneria', 'Meteo', 'Fortuna', 'Sector X', 'Macbeth', 'Bolse', 'Venom 1'],
+    'CoMeFoSXMaA6V2': ['Corneria', 'Meteo', 'Fortuna', 'Sector X', 'Macbeth', 'Area 6', 'Venom 2'],
+    'CoMeFoSXSZBoV1': ['Corneria', 'Meteo', 'Fortuna', 'Sector X', 'Sector Z', 'Bolse', 'Venom 1'],
+    'CoMeFoSXSZA6V2': ['Corneria', 'Meteo', 'Fortuna', 'Sector X', 'Sector Z', 'Area 6', 'Venom 2'],
+    'CoMeFoSoMaBoV1': ['Corneria', 'Meteo', 'Fortuna', 'Solar', 'Macbeth', 'Bolse', 'Venom 1'],
+    'CoMeFoSoMaA6V2': ['Corneria', 'Meteo', 'Fortuna', 'Solar', 'Macbeth', 'Area 6', 'Venom 2'],
+    'CoMeKaSXTiBoV1': ['Corneria', 'Meteo', 'Katina', 'Sector X', 'Titania', 'Bolse', 'Venom 1'],
+    'CoMeKaSXMaBoV1': ['Corneria', 'Meteo', 'Katina', 'Sector X', 'Macbeth', 'Bolse', 'Venom 1'],
+    'CoMeKaSXMaA6V2': ['Corneria', 'Meteo', 'Katina', 'Sector X', 'Macbeth', 'Area 6', 'Venom 2'],
+    'CoMeKaSXSZBoV1': ['Corneria', 'Meteo', 'Katina', 'Sector X', 'Sector Z', 'Bolse', 'Venom 1'],
+    'CoMeKaSXSZA6V2': ['Corneria', 'Meteo', 'Katina', 'Sector X', 'Sector Z', 'Area 6', 'Venom 2'],
+    'CoMeKaSoMaBoV1': ['Corneria', 'Meteo', 'Katina', 'Solar', 'Macbeth', 'Bolse', 'Venom 1'],
+    'CoMeKaSoMaA6V2': ['Corneria', 'Meteo', 'Katina', 'Solar', 'Macbeth', 'Area 6', 'Venom 2'],
+    'CoSYKaSXTiBoV1': ['Corneria', 'Sector Y', 'Katina', 'Sector X', 'Titania', 'Bolse', 'Venom 1'],
+    'CoSYKaSXMaBoV1': ['Corneria', 'Sector Y', 'Katina', 'Sector X', 'Macbeth', 'Bolse', 'Venom 1'],
+    'CoSYKaSXMaA6V2': ['Corneria', 'Sector Y', 'Katina', 'Sector X', 'Macbeth', 'Area 6', 'Venom 2'],
+    'CoSYKaSXSZBoV1': ['Corneria', 'Sector Y', 'Katina', 'Sector X', 'Sector Z', 'Bolse', 'Venom 1'],
+    'CoSYKaSXSZA6V2': ['Corneria', 'Sector Y', 'Katina', 'Sector X', 'Sector Z', 'Area 6', 'Venom 2'],
+    'CoSyKaSoMaVoV1': ['Corneria', 'Sector Y', 'Katina', 'Solar', 'Macbeth', 'Venom 1'],
+    'CoSyKaSoMaA6V2': ['Corneria', 'Sector Y', 'Katina', 'Solar', 'Macbeth', 'Area 6', 'Venom 2'],
+    'CoSyAqZoMaBoV1': ['Corneria', 'Sector Y', 'Aquas', 'Zoness', 'Macbeth', 'Bolse', 'Venom 1'],
+    'CoSyAqZoMaA6V2': ['Corneria', 'Sector Y', 'Aquas', 'Zoness', 'Macbeth', 'Area 6', 'Venom 2'],
+    'CoSyAqZoSZBoV1': ['Corneria', 'Sector Y', 'Aquas', 'Zoness', 'Sector Z', 'Bolse', 'Venom 1'],
+    'CoSyAqZoSZA6V2': ['Corneria', 'Sector Y', 'Aquas', 'Zoness', 'Sector Z', 'Area 6', 'Venom 2'],
+}
+
+# Initialize a dictionary for storing color settings with default values
+color_settings = {
+    'font_size': '12',
+    'font_color_hex': '#FFFFFF',
+    'background_color_hex': '#333333',
+    'dropdown_bg_color_hex': '#333333',
+    'dropdown_border_color_hex': '#FFFFFF',
+    'button_font_size': '12',
+    'button_font_color_hex': '#FFFFFF',
+    'button_bg_color_hex': '#333333',
+    'worst_than_pb_color_hex': '#FF0000',
+    'same_as_pb_color_hex': '#deaf5f',
+    'new_pb_color_hex': '#0000FF',
+}
