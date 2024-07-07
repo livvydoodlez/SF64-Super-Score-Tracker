@@ -15,3 +15,8 @@ This is a score tracker made in python to track scores and personal bests for St
 # NOTICE:
 
 This was a sloppily made together score tracker. It does the job, but not well. Keep that in mind.
+
+
+
+
+![alt text](https://i.gyazo.com/6659838ed2b72fd769bafb18401dabbc.png)
