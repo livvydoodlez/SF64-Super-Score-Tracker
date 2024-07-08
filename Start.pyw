@@ -254,8 +254,8 @@ class ScoreTracker:
             difference = current_score - best_score
 
             # Display current score
-            Label(self.frame_planets, text=str(current_score), bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
-                  font=("Arial", int(color_settings['font_size']))).grid(row=i, column=3, sticky='e', padx=(0, 10), pady=5)
+            """Label(self.frame_planets, text=str(current_score), bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
+                  font=("Arial", int(color_settings['font_size']))).grid(row=i, column=3, sticky='e', padx=(0, 10), pady=5)"""
             
             # Display best score
             Label(self.frame_planets, text=str(best_score), bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
