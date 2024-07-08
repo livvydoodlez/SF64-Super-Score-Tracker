@@ -11,6 +11,12 @@ This is a score tracker made in python to track scores and personal bests for St
 3. Saves all settings to an INI file so you can keep track of all your scores.
 
 
+#How to use:
+
+1. Download the latest version of python.
+2. Unzip the folder
+3. run start.pyw
+
 
 # NOTICE:
 
