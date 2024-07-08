@@ -360,6 +360,7 @@ class ScoreTracker:
         for widget in parent_frame.winfo_children():
             widget.grid_configure(sticky='we')
 
+
     def open_settings_window(self):
         if not hasattr(self, 'settings_window') or self.settings_window is None:
             self.settings_window = Toplevel(self.root)
@@ -382,52 +383,104 @@ class ScoreTracker:
             background_color_entry.grid(row=2, column=1, padx=10, pady=5)
             background_color_entry.insert(0, color_settings['background_color_hex'])
 
-            Label(self.settings_window, text="Button Font Size:", anchor='w').grid(row=3, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Dropdown BG Color (Hex):", anchor='w').grid(row=3, column=0, padx=10, pady=5)
+            dropdown_bg_color_entry = Entry(self.settings_window, width=20)
+            dropdown_bg_color_entry.grid(row=3, column=1, padx=10, pady=5)
+            dropdown_bg_color_entry.insert(0, color_settings['dropdown_bg_color_hex'])
+
+            Label(self.settings_window, text="Dropdown Border Color (Hex):", anchor='w').grid(row=4, column=0, padx=10, pady=5)
+            dropdown_border_color_entry = Entry(self.settings_window, width=20)
+            dropdown_border_color_entry.grid(row=4, column=1, padx=10, pady=5)
+            dropdown_border_color_entry.insert(0, color_settings['dropdown_border_color_hex'])
+
+            Label(self.settings_window, text="Button Font Size:", anchor='w').grid(row=5, column=0, padx=10, pady=5)
             button_font_size_entry = Entry(self.settings_window, width=10)
-            button_font_size_entry.grid(row=3, column=1, padx=10, pady=5)
+            button_font_size_entry.grid(row=5, column=1, padx=10, pady=5)
             button_font_size_entry.insert(0, color_settings['button_font_size'])
 
-            Label(self.settings_window, text="Button Font Color (Hex):", anchor='w').grid(row=4, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Button Font Color (Hex):", anchor='w').grid(row=6, column=0, padx=10, pady=5)
             button_font_color_entry = Entry(self.settings_window, width=20)
-            button_font_color_entry.grid(row=4, column=1, padx=10, pady=5)
+            button_font_color_entry.grid(row=6, column=1, padx=10, pady=5)
             button_font_color_entry.insert(0, color_settings['button_font_color_hex'])
 
-            Label(self.settings_window, text="Button Background Color (Hex):", anchor='w').grid(row=5, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Button Background Color (Hex):", anchor='w').grid(row=7, column=0, padx=10, pady=5)
             button_bg_color_entry = Entry(self.settings_window, width=20)
-            button_bg_color_entry.grid(row=5, column=1, padx=10, pady=5)
+            button_bg_color_entry.grid(row=7, column=1, padx=10, pady=5)
             button_bg_color_entry.insert(0, color_settings['button_bg_color_hex'])
+
+            Label(self.settings_window, text="Worse Than PB Color (Hex):", anchor='w').grid(row=8, column=0, padx=10, pady=5)
+            worst_than_pb_color_entry = Entry(self.settings_window, width=20)
+            worst_than_pb_color_entry.grid(row=8, column=1, padx=10, pady=5)
+            worst_than_pb_color_entry.insert(0, color_settings['worst_than_pb_color_hex'])
+
+            Label(self.settings_window, text="Same As PB Color (Hex):", anchor='w').grid(row=9, column=0, padx=10, pady=5)
+            same_as_pb_color_entry = Entry(self.settings_window, width=20)
+            same_as_pb_color_entry.grid(row=9, column=1, padx=10, pady=5)
+            same_as_pb_color_entry.insert(0, color_settings['same_as_pb_color_hex'])
+
+            Label(self.settings_window, text="New PB Color (Hex):", anchor='w').grid(row=10, column=0, padx=10, pady=5)
+            new_pb_color_entry = Entry(self.settings_window, width=20)
+            new_pb_color_entry.grid(row=10, column=1, padx=10, pady=5)
+            new_pb_color_entry.insert(0, color_settings['new_pb_color_hex'])
+
+            warning_label = Label(self.settings_window, text="Color settings are in (RRGGBB) Format (Fuck python)", anchor='center')
+            warning_label.grid(row=11, column=0, columnspan=2, padx=10, pady=5, sticky='nsew')
+
+
+            warning_label = Label(self.settings_window, text="WARNING! SETTINGS WILL ONLY APPLY NORMALLY AFTER RESTARTING PROGRAM!", anchor='center')
+            warning_label.grid(row=12, column=0, columnspan=2, padx=10, pady=5, sticky='nsew')
+
 
             # Save button
             Button(self.settings_window, text="Save", command=lambda: self.save_settings(
                 font_size_entry.get(),
                 font_color_entry.get(),
                 background_color_entry.get(),
+                dropdown_bg_color_entry.get(),
+                dropdown_border_color_entry.get(),
                 button_font_size_entry.get(),
                 button_font_color_entry.get(),
-                button_bg_color_entry.get()
-            )).grid(row=6, column=0, columnspan=2, pady=10)
+                button_bg_color_entry.get(),
+                worst_than_pb_color_entry.get(),
+                same_as_pb_color_entry.get(),
+                new_pb_color_entry.get()
+            )).grid(row=13, column=0, columnspan=2, pady=10)
 
-    def save_settings(self, font_size, font_color_hex, background_color_hex, button_font_size, button_font_color_hex, button_bg_color_hex):
+    def save_settings(self, font_size, font_color_hex, background_color_hex, dropdown_bg_color_hex, dropdown_border_color_hex, button_font_size, button_font_color_hex, button_bg_color_hex, worst_than_pb_color_hex, same_as_pb_color_hex, new_pb_color_hex):
         # Update color settings dictionary
         color_settings.update({
             'font_size': font_size,
             'font_color_hex': font_color_hex,
             'background_color_hex': background_color_hex,
+            'dropdown_bg_color_hex': dropdown_bg_color_hex,
+            'dropdown_border_color_hex': dropdown_border_color_hex,
             'button_font_size': button_font_size,
             'button_font_color_hex': button_font_color_hex,
             'button_bg_color_hex': button_bg_color_hex,
+            'worst_than_pb_color_hex': worst_than_pb_color_hex,
+            'same_as_pb_color_hex': same_as_pb_color_hex,
+            'new_pb_color_hex': new_pb_color_hex,
         })
 
-        # Optionally, save these settings back to the .ini file
+        # Save settings back to the .ini file
         config.set('COLOR_SETTINGS', 'font_size', font_size)
         config.set('COLOR_SETTINGS', 'font_color_hex', font_color_hex)
         config.set('COLOR_SETTINGS', 'background_color_hex', background_color_hex)
+        config.set('COLOR_SETTINGS', 'dropdown_bg_color_hex', dropdown_bg_color_hex)
+        config.set('COLOR_SETTINGS', 'dropdown_border_color_hex', dropdown_border_color_hex)
         config.set('COLOR_SETTINGS', 'button_font_size', button_font_size)
         config.set('COLOR_SETTINGS', 'button_font_color_hex', button_font_color_hex)
         config.set('COLOR_SETTINGS', 'button_bg_color_hex', button_bg_color_hex)
+        config.set('COLOR_SETTINGS', 'worst_than_pb_color_hex', worst_than_pb_color_hex)
+        config.set('COLOR_SETTINGS', 'same_as_pb_color_hex', same_as_pb_color_hex)
+        config.set('COLOR_SETTINGS', 'new_pb_color_hex', new_pb_color_hex)
 
         with open('path_to_your_config_file.ini', 'w') as configfile:
             config.write(configfile)
+
+        # Reload settings from the .ini file
+        config.read('path_to_your_config_file.ini')
+        color_settings.update(config['COLOR_SETTINGS'])
 
         # Write color settings to settings.ini
         config['COLOR_SETTINGS'] = color_settings
@@ -450,6 +503,8 @@ class ScoreTracker:
     def close_settings_window(self):
         self.settings_window.destroy()
         self.settings_window = None
+
+
 
 if __name__ == "__main__":
     ScoreTracker()
