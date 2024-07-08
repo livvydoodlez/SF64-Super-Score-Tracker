@@ -9,6 +9,22 @@ import os
 config = configparser.ConfigParser()
 config.read('config/settings.ini')
 
+color_settings.update({
+    'font_size': config.get('COLOR_SETTINGS', 'font_size'),
+    'font_color_hex': config.get('COLOR_SETTINGS', 'font_color_hex'),
+    'background_color_hex': config.get('COLOR_SETTINGS', 'background_color_hex'),
+    'button_font_size': config.get('COLOR_SETTINGS', 'button_font_size'),
+    'button_font_color_hex': config.get('COLOR_SETTINGS', 'button_font_color_hex'),
+    'button_bg_color_hex': config.get('COLOR_SETTINGS', 'button_bg_color_hex'),
+})
+
+
+
+last_selected_route = None
+if 'LAST_SELECTED_ROUTE' in config:
+    last_selected_route = config['LAST_SELECTED_ROUTE'].get('route_name', None)
+
+
 if 'COLOR_SETTINGS' in config:
     color_settings.update(config['COLOR_SETTINGS'])
 
@@ -34,7 +50,8 @@ class ScoreTracker:
               font=("Arial", int(color_settings['font_size']))).pack(side='left', padx=(0, 10))
 
         self.clicked = StringVar()
-        self.clicked.set(list(route_to_planets.keys())[0])  # Set default route
+        default_route = list(route_to_planets.keys())[0] if last_selected_route is None else last_selected_route
+        self.clicked.set(default_route)  # Set default route
 
         # Create a list of display names for OptionMenu (with numbers)
         route_display_names = [f"{i+1}. {route}" for i, route in enumerate(route_to_planets.keys())]
@@ -64,7 +81,6 @@ class ScoreTracker:
 
         self.display_planet_data(selected_route_name)  # Update UI with selected route name only
 
-
         # Label for "Made by: Livvydoodlez"
         Label(self.root, text="Made by: Livvydoodlez", bg=color_settings['background_color_hex'],
               fg=color_settings['font_color_hex'], font=("Arial", int(color_settings['font_size']))).pack(anchor='w', padx=10, pady=(20, 10))
@@ -85,6 +101,7 @@ class ScoreTracker:
 
         # Pack the main window
         self.root.mainloop()
+
 
 
 
@@ -157,6 +174,19 @@ class ScoreTracker:
             config[route_name]["Total"] = str(total_score)
 
             with open(f'savedRoutes/{route_name}.ini', 'w') as configfile:
+                config.write(configfile)
+
+            # Save last selected route to settings.ini
+            if 'LAST_SELECTED_ROUTE' not in config:
+                config['LAST_SELECTED_ROUTE'] = {}
+            config['LAST_SELECTED_ROUTE']['route_name'] = route_name
+
+            # Preserve the COLOR_SETTINGS section
+            if color_settings:
+                config['COLOR_SETTINGS'] = color_settings
+
+            # Write the updated config back to the file
+            with open('config/settings.ini', 'w') as configfile:
                 config.write(configfile)
 
             # Re-create the widgets to reflect the updated data
@@ -387,6 +417,17 @@ class ScoreTracker:
             'button_font_color_hex': button_font_color_hex,
             'button_bg_color_hex': button_bg_color_hex,
         })
+
+        # Optionally, save these settings back to the .ini file
+        config.set('COLOR_SETTINGS', 'font_size', font_size)
+        config.set('COLOR_SETTINGS', 'font_color_hex', font_color_hex)
+        config.set('COLOR_SETTINGS', 'background_color_hex', background_color_hex)
+        config.set('COLOR_SETTINGS', 'button_font_size', button_font_size)
+        config.set('COLOR_SETTINGS', 'button_font_color_hex', button_font_color_hex)
+        config.set('COLOR_SETTINGS', 'button_bg_color_hex', button_bg_color_hex)
+
+        with open('path_to_your_config_file.ini', 'w') as configfile:
+            config.write(configfile)
 
         # Write color settings to settings.ini
         config['COLOR_SETTINGS'] = color_settings
