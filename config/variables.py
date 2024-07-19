@@ -19,7 +19,7 @@ route_to_planets = {
     'CoSYKaSXMaA6V2': ['Corneria', 'Sector Y', 'Katina', 'Sector X', 'Macbeth', 'Area 6', 'Venom 2'],
     'CoSYKaSXSZBoV1': ['Corneria', 'Sector Y', 'Katina', 'Sector X', 'Sector Z', 'Bolse', 'Venom 1'],
     'CoSYKaSXSZA6V2': ['Corneria', 'Sector Y', 'Katina', 'Sector X', 'Sector Z', 'Area 6', 'Venom 2'],
-    'CoSyKaSoMaVoV1': ['Corneria', 'Sector Y', 'Katina', 'Solar', 'Macbeth', 'Bolse' 'Venom 1'],
+    'CoSyKaSoMaBoV1': ['Corneria', 'Sector Y', 'Katina', 'Solar', 'Macbeth', 'Bolse', 'Venom 1'],
     'CoSyKaSoMaA6V2': ['Corneria', 'Sector Y', 'Katina', 'Solar', 'Macbeth', 'Area 6', 'Venom 2'],
     'CoSyAqZoMaBoV1': ['Corneria', 'Sector Y', 'Aquas', 'Zoness', 'Macbeth', 'Bolse', 'Venom 1'],
     'CoSyAqZoMaA6V2': ['Corneria', 'Sector Y', 'Aquas', 'Zoness', 'Macbeth', 'Area 6', 'Venom 2'],
