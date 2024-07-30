@@ -25,6 +25,8 @@ route_to_planets = {
     'CoSyAqZoMaA6V2': ['Corneria', 'Sector Y', 'Aquas', 'Zoness', 'Macbeth', 'Area 6', 'Venom 2'],
     'CoSyAqZoSZBoV1': ['Corneria', 'Sector Y', 'Aquas', 'Zoness', 'Sector Z', 'Bolse', 'Venom 1'],
     'CoSyAqZoSZA6V2': ['Corneria', 'Sector Y', 'Aquas', 'Zoness', 'Sector Z', 'Area 6', 'Venom 2'],
+    'Sum_Of_Best': ['Aquas', 'Area 6', 'Bolse', 'Corneria', 'Fortuna', 'Katina',
+    'Macbeth', 'Meteo', 'Sector X', 'Sector Y', 'Sector Z', 'Solar', 'Titania', 'Venom 1', 'Venom 2', 'Zoness']
 }
 
 # Initialize a dictionary for storing color settings with default values
