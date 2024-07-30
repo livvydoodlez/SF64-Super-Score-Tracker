@@ -4,6 +4,7 @@ from config.variables import *
 from config.settings import *
 import configparser
 import os
+import subprocess
 
 # Load color settings from settings.ini if available
 config = configparser.ConfigParser()
@@ -173,26 +174,35 @@ class ScoreTracker:
             total_score = sum(self.current_scores)
             config[route_name]["Total"] = str(total_score)
 
-            with open(f'savedRoutes/{route_name}.ini', 'w') as configfile:
+            # Save the route configuration to an INI file
+            ini_file_path = os.path.join('savedRoutes', f'{route_name}.ini')
+            with open(ini_file_path, 'w') as configfile:
                 config.write(configfile)
 
             # Save last selected route to settings.ini
-            if 'LAST_SELECTED_ROUTE' not in config:
-                config['LAST_SELECTED_ROUTE'] = {}
-            config['LAST_SELECTED_ROUTE']['route_name'] = route_name
+            settings_config = configparser.ConfigParser()
+            settings_config.read('config/settings.ini')
+            if 'LAST_SELECTED_ROUTE' not in settings_config:
+                settings_config['LAST_SELECTED_ROUTE'] = {}
+            settings_config['LAST_SELECTED_ROUTE']['route_name'] = route_name
 
             # Preserve the COLOR_SETTINGS section
-            if color_settings:
-                config['COLOR_SETTINGS'] = color_settings
+            if 'COLOR_SETTINGS' in settings_config:
+                settings_config['COLOR_SETTINGS'] = color_settings
 
-            # Write the updated config back to the file
+            # Write the updated settings back to the settings.ini file
             with open('config/settings.ini', 'w') as configfile:
-                config.write(configfile)
+                settings_config.write(configfile)
 
             # Re-create the widgets to reflect the updated data
             self.load_saved_route()
+
+            # Run the getSOB.pyw script located in savedRoutes folder
+            subprocess.Popen(['pythonw', 'getSOB.pyw'], cwd='savedRoutes')
+
         else:
             messagebox.showinfo("No Improvement", "No improvements to save. Current scores are not better than existing best scores.")
+
 
 
 
@@ -211,16 +221,18 @@ class ScoreTracker:
 
 
     def display_planet_data(self, selected_route):
+        # Get the selected route's name and the list of planets for this route
         selected_route_name = self.clicked.get()  # Get the selected route name directly
         planets = route_to_planets[selected_route_name]
+
         # Clear existing widgets in frame_planets
         for widget in self.frame_planets.winfo_children():
             widget.destroy()
 
-        # Get the list of planet names for the selected route
-        planets = route_to_planets.get(selected_route, [])
+        # Determine the number of planets
+        num_planets = len(planets)
 
-        # Display planet names dynamically
+        # Display headers dynamically
         Label(self.frame_planets, text="Planet:", bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
               font=("Arial", int(color_settings['font_size']))).grid(row=0, column=0, sticky='w')
         Label(self.frame_planets, text="Current Score:", bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
@@ -236,7 +248,7 @@ class ScoreTracker:
         for i, planet in enumerate(planets, start=1):
             Label(self.frame_planets, text=f"{planet}:", bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
                   font=("Arial", int(color_settings['font_size'])), anchor='w').grid(row=i, column=0, padx=10, pady=5)
-            
+
             # Create Entry widget for current score
             if planet != "Current Score":
                 entry = Entry(self.frame_planets, width=5, validate="key", validatecommand=(self.root.register(self.on_entry_update(i-1, planets)), '%P'))
@@ -244,23 +256,23 @@ class ScoreTracker:
                 self.frame_planets.grid_columnconfigure(3, weight=1, minsize=50)  # Adjust column width
 
             # Get best score for the planet (replace with actual logic to retrieve best score)
-            best_score = self.best_scores[i-1]
+            best_score = self.best_scores[i-1] if i-1 < len(self.best_scores) else 0
 
             # Initialize current score
-            current_score = self.current_scores[i-1]
+            current_score = self.current_scores[i-1] if i-1 < len(self.current_scores) else 0
             self.current_scores_dict[planet] = current_score
 
             # Calculate initial difference
             difference = current_score - best_score
 
             # Display current score
-            """Label(self.frame_planets, text=str(current_score), bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
-                  font=("Arial", int(color_settings['font_size']))).grid(row=i, column=3, sticky='e', padx=(0, 10), pady=5)"""
-            
+            Label(self.frame_planets, text=str(current_score), bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
+                  font=("Arial", int(color_settings['font_size']))).grid(row=i, column=3, sticky='e', padx=(0, 10), pady=5)
+
             # Display best score
             Label(self.frame_planets, text=str(best_score), bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
                   font=("Arial", int(color_settings['font_size']))).grid(row=i, column=6, sticky='e', padx=(0, 10), pady=5)
-            
+
             # Display difference with color coding
             difference_label = Label(self.frame_planets, text=str(difference), bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
                                      font=("Arial", int(color_settings['font_size'])))
@@ -281,14 +293,14 @@ class ScoreTracker:
 
         # Display total row
         Label(self.frame_planets, text="Total:", bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
-              font=("Arial", int(color_settings['font_size']))).grid(row=len(planets) + 1, column=0, sticky='w')
+              font=("Arial", int(color_settings['font_size']))).grid(row=num_planets + 1, column=0, sticky='w')
         Label(self.frame_planets, text=str(total_score), bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
-              font=("Arial", int(color_settings['font_size']))).grid(row=len(planets) + 1, column=3, sticky='e')
+              font=("Arial", int(color_settings['font_size']))).grid(row=num_planets + 1, column=3, sticky='e')
         Label(self.frame_planets, text=str(total_best_score), bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
-              font=("Arial", int(color_settings['font_size']))).grid(row=len(planets) + 1, column=6, sticky='e')
+              font=("Arial", int(color_settings['font_size']))).grid(row=num_planets + 1, column=6, sticky='e')
         total_difference_label = Label(self.frame_planets, text=str(total_difference), bg=color_settings['background_color_hex'], fg=color_settings['font_color_hex'],
                                        font=("Arial", int(color_settings['font_size'])))
-        total_difference_label.grid(row=len(planets) + 1, column=7, sticky='e', padx=(0, 10), pady=5)
+        total_difference_label.grid(row=num_planets + 1, column=7, sticky='e', padx=(0, 10), pady=5)
 
         # Apply color coding for total difference
         if total_difference < 0:
@@ -297,6 +309,7 @@ class ScoreTracker:
             total_difference_label.config(fg=color_settings['same_as_pb_color_hex'])
         else:
             total_difference_label.config(fg=color_settings['new_pb_color_hex'])
+
 
     def on_entry_update(self, index, planets):
         def callback(value):
@@ -373,22 +386,22 @@ class ScoreTracker:
             font_size_entry.grid(row=0, column=1, padx=10, pady=5)
             font_size_entry.insert(0, color_settings['font_size'])
 
-            Label(self.settings_window, text="Font Color (Hex):", anchor='w').grid(row=1, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Font Color (RRGGBB):", anchor='w').grid(row=1, column=0, padx=10, pady=5)
             font_color_entry = Entry(self.settings_window, width=20)
             font_color_entry.grid(row=1, column=1, padx=10, pady=5)
             font_color_entry.insert(0, color_settings['font_color_hex'])
 
-            Label(self.settings_window, text="Background Color (Hex):", anchor='w').grid(row=2, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Background Color (RRGGBB):", anchor='w').grid(row=2, column=0, padx=10, pady=5)
             background_color_entry = Entry(self.settings_window, width=20)
             background_color_entry.grid(row=2, column=1, padx=10, pady=5)
             background_color_entry.insert(0, color_settings['background_color_hex'])
 
-            Label(self.settings_window, text="Dropdown BG Color (Hex):", anchor='w').grid(row=3, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Dropdown BG Color (RRGGBB):", anchor='w').grid(row=3, column=0, padx=10, pady=5)
             dropdown_bg_color_entry = Entry(self.settings_window, width=20)
             dropdown_bg_color_entry.grid(row=3, column=1, padx=10, pady=5)
             dropdown_bg_color_entry.insert(0, color_settings['dropdown_bg_color_hex'])
 
-            Label(self.settings_window, text="Dropdown Border Color (Hex):", anchor='w').grid(row=4, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Dropdown Border Color (RRGGBB):", anchor='w').grid(row=4, column=0, padx=10, pady=5)
             dropdown_border_color_entry = Entry(self.settings_window, width=20)
             dropdown_border_color_entry.grid(row=4, column=1, padx=10, pady=5)
             dropdown_border_color_entry.insert(0, color_settings['dropdown_border_color_hex'])
@@ -398,27 +411,27 @@ class ScoreTracker:
             button_font_size_entry.grid(row=5, column=1, padx=10, pady=5)
             button_font_size_entry.insert(0, color_settings['button_font_size'])
 
-            Label(self.settings_window, text="Button Font Color (Hex):", anchor='w').grid(row=6, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Button Font Color (RRGGBB):", anchor='w').grid(row=6, column=0, padx=10, pady=5)
             button_font_color_entry = Entry(self.settings_window, width=20)
             button_font_color_entry.grid(row=6, column=1, padx=10, pady=5)
             button_font_color_entry.insert(0, color_settings['button_font_color_hex'])
 
-            Label(self.settings_window, text="Button Background Color (Hex):", anchor='w').grid(row=7, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Button Background Color (RRGGBB):", anchor='w').grid(row=7, column=0, padx=10, pady=5)
             button_bg_color_entry = Entry(self.settings_window, width=20)
             button_bg_color_entry.grid(row=7, column=1, padx=10, pady=5)
             button_bg_color_entry.insert(0, color_settings['button_bg_color_hex'])
 
-            Label(self.settings_window, text="Worse Than PB Color (Hex):", anchor='w').grid(row=8, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Worse Than PB Color (RRGGBB):", anchor='w').grid(row=8, column=0, padx=10, pady=5)
             worst_than_pb_color_entry = Entry(self.settings_window, width=20)
             worst_than_pb_color_entry.grid(row=8, column=1, padx=10, pady=5)
             worst_than_pb_color_entry.insert(0, color_settings['worst_than_pb_color_hex'])
 
-            Label(self.settings_window, text="Same As PB Color (Hex):", anchor='w').grid(row=9, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="Same As PB Color (RRGGBB):", anchor='w').grid(row=9, column=0, padx=10, pady=5)
             same_as_pb_color_entry = Entry(self.settings_window, width=20)
             same_as_pb_color_entry.grid(row=9, column=1, padx=10, pady=5)
             same_as_pb_color_entry.insert(0, color_settings['same_as_pb_color_hex'])
 
-            Label(self.settings_window, text="New PB Color (Hex):", anchor='w').grid(row=10, column=0, padx=10, pady=5)
+            Label(self.settings_window, text="New PB Color (RRGGBB):", anchor='w').grid(row=10, column=0, padx=10, pady=5)
             new_pb_color_entry = Entry(self.settings_window, width=20)
             new_pb_color_entry.grid(row=10, column=1, padx=10, pady=5)
             new_pb_color_entry.insert(0, color_settings['new_pb_color_hex'])
