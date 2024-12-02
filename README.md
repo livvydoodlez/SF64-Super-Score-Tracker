@@ -1,5 +1,5 @@
 # SF64-Super-Score-Tracker
-Star Fox 64 Score Tracker for Hit+64
+Star Fox 64 Score Tracker for https://nova-score.net
 
 
 This is a score tracker made in python to track scores and personal bests for Star Fox 64.
