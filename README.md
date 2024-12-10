@@ -26,3 +26,11 @@ This was a sloppily made together score tracker. It does the job, but not well. 
 
 
 ![alt text](https://i.gyazo.com/6659838ed2b72fd769bafb18401dabbc.png)
+
+
+
+ADDITIONAL RULES:
+
+You may edit the program as you see fit, but you are not allowed to remove my credits from the program.
+
+If you are going to use this program on streaming content, please make sure the credits is not hidden or removed from the program display.
