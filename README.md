@@ -31,10 +31,10 @@ This was a sloppily made together score tracker. It does the job, but not well. 
 
 Terms and Conditions:
 
-    Modification Rights:
-    You are free to modify and adapt this program as needed to suit your requirements. However, the credits associated with this program must remain intact and cannot be removed or altered in any way.
+1. Modification Rights:
+You are free to modify and adapt this program as needed to suit your requirements. However, the credits associated with this program must remain intact and cannot be removed or altered in any way.
 
-    Usage in Streaming Content:
-    If you choose to use this program in any form of streaming or public broadcast, please ensure that the credits are clearly visible and not obscured or removed from the display.
+2. Usage in Streaming Content:
+If you choose to use this program in any form of streaming or public broadcast, please ensure that the credits are clearly visible and not obscured or removed from the display.
 
 By using this program, you agree to comply with these terms.
