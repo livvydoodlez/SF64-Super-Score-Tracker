@@ -29,7 +29,7 @@ This was a sloppily made together score tracker. It does the job, but not well. 
 
 
 
-ADDITIONAL RULES:
+TERMS AND CONDITIONS:
 
 You may edit the program as you see fit, but you are not allowed to remove my credits from the program.
 
