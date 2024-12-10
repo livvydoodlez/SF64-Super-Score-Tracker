@@ -29,8 +29,12 @@ This was a sloppily made together score tracker. It does the job, but not well. 
 
 
 
-TERMS AND CONDITIONS:
+Terms and Conditions:
 
-You may edit the program as you see fit, but you are not allowed to remove my credits from the program.
+    Modification Rights:
+    You are free to modify and adapt this program as needed to suit your requirements. However, the credits associated with this program must remain intact and cannot be removed or altered in any way.
 
-If you are going to use this program on streaming content, please make sure the credits is not hidden or removed from the program display.
+    Usage in Streaming Content:
+    If you choose to use this program in any form of streaming or public broadcast, please ensure that the credits are clearly visible and not obscured or removed from the display.
+
+By using this program, you agree to comply with these terms.
